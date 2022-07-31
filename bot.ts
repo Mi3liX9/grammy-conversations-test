@@ -49,4 +49,4 @@ bot.use(createConversation(greeting));
 
 bot.on("message", (ctx) => ctx.conversation.enter("greeting"));
 
-bot.start();
+// bot.start();
