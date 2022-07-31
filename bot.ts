@@ -13,6 +13,7 @@ import {
 
 interface SessionData {
   pizzaCount: number;
+  name: string;
 }
 
 type MyContext = Context & SessionFlavor<SessionData> & ConversationFlavor;
@@ -22,7 +23,8 @@ async function greeting(conversation: MyConversation, ctx: MyContext) {
   await ctx.reply("Hello, what's your name?");
   ctx = await conversation.wait();
   const name = ctx.message?.text;
-  await ctx.reply(`Nice to meet you, ${name}!`);
+  ctx.session.name = name!;
+  await ctx.reply(`Nice to meet you, ${ctx.session.name}!`);
   await ctx.reply("How many pizzas do you want?");
   ctx = await conversation.wait();
   const pizzaCount = parseInt(ctx.message?.text || "0");
@@ -40,7 +42,7 @@ if (typeof BOT_TOKEN === "undefined") {
 export const bot = new Bot<MyContext>(BOT_TOKEN);
 bot.use(
   session({
-    initial: () => ({ pizzaCount: 0 }),
+    initial: () => ({ pizzaCount: 0, name: "" }),
   })
 );
 
