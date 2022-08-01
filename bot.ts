@@ -3,13 +3,13 @@ import {
   type Context,
   session,
   SessionFlavor,
-} from "https://deno.land/x/grammy@v1.9.2/mod.ts";
+} from "https://raw.githubusercontent.com/grammyjs/grammY/main/src/mod.ts";
 import {
   type Conversation,
   type ConversationFlavor,
   conversations,
   createConversation,
-} from "https://deno.land/x/grammy_conversations/mod.ts";
+} from "https://raw.githubusercontent.com/grammyjs/conversations/main/src/mod.ts";
 
 interface SessionData {
   pizzaCount: number;
@@ -33,7 +33,7 @@ async function greeting(conversation: MyConversation, ctx: MyContext) {
   await ctx.reply(`${name}, you want ${ctx.session.pizzaCount} pizzas.`);
 }
 
-const BOT_TOKEN = Deno.env.get("BOT_TOKEN");
+const BOT_TOKEN = Deno.env.get("BOT_TOKEN") || ;
 
 if (typeof BOT_TOKEN === "undefined") {
   throw new Error("BOT_TOKEN is not defined");
